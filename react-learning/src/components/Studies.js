@@ -11,6 +11,8 @@ import {
 } from "react-router-dom";
 import StudiesList from './StudiesList';
 import StudiesDetails from './StudiesDetails';
+import * as actionCreator from "../redux/actions";
+import { connect, useSelector, useDispatch, } from "react-redux";
 
 
 function Studies() {

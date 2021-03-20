@@ -3,10 +3,28 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
+import axios from 'axios';
+import {Provider} from 'react-redux';
+import {BrowserRouter} from 'react-router-dom';
+import store from  './redux/store';
+
+axios.interceptors.request.use(function (config) {
+  // Do something before request is sent
+  console.log('test venkat');
+  config.headers.clientid =  654111;
+  return config;
+}, function (error) {
+  // Do something with request error
+  return Promise.reject(error);
+});
 
 ReactDOM.render(
   <React.StrictMode>
-    <App />
+    <BrowserRouter>
+    <Provider store={store}>
+      <App />
+    </Provider>
+   </BrowserRouter>    
   </React.StrictMode>,
   document.getElementById('root')
 );

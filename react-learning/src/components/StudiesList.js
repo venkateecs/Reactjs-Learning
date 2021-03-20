@@ -9,11 +9,23 @@ import {
   useParams,
   useHistory 
 } from "react-router-dom";
+import * as actionCreator from "../redux/actions";
+import { connect, useSelector, useDispatch, } from "react-redux";
 
 
 function StudiesList() {
   const history = useHistory();
   let match = useRouteMatch();
+  const dispatch = useDispatch();
+  let studiesList = [];
+  studiesList = useSelector((state)=>{
+    return state;
+ });
+  useEffect(() => {
+    //const studiesList = useSelector(state => state.studiesList);
+    console.log('studiesList', studiesList);
+    
+}, []);
   const studiesDetails = ()=>{
     history.push('/studies/component')
   }

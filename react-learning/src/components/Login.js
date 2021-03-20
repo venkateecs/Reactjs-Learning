@@ -11,22 +11,27 @@ import {
     useParams,
     useHistory 
   } from "react-router-dom";
+import * as actionCreator from "../redux/actions";
+import { connect, useSelector, useDispatch, } from "react-redux";
 
 function Login() {
     const history = useHistory();
+    const dispatch = useDispatch();
+  useEffect(() => {
+    dispatch(actionCreator.saveStudiesData([{name:'Ganesh'}, {name:'Kumar'}]));
+}, []);
+const studiesList = useSelector((state)=>{
+    console.log('state check', state);
+    return state;
+ });
     const handleSubmit = (e)=> {
-    e.preventDefault();
-    /*axios.post(`https://clientonbelb.styx.threadresearch.com/api/v1/auth/sign-in`, {"password":"Thread@80","username":"ramana.gulla+pltadmin@fissionlabs.com","webPortalLogIn":true})
-      .then(res => {
-        console.log(res);
-        console.log(res.data);
-      })*/
-      axios.post('https://clientonbelb.styx.threadresearch.com/api/v1/auth/sign-in', {"password":"Thread@80","username":"ramana.gulla+pltadmin@fissionlabs.com","webPortalLogIn":true}, {
-        headers: {
-            'clientid': 654111
-        }
+    e.preventDefault();   
+    console.log('check state', studiesList);     
+    axios.post('https://clientonbelb.styx.threadresearch.com/api/v1/auth/sign-in', {"password":"Thread@80","username":"ramana.gulla+pltadmin@fissionlabs.com","webPortalLogIn":true}, {        
         }).then((res)=>{
         console.log(res);
+        localStorage.setItem('thread-token',res.data.result.token);
+        localStorage.setItem('thread-refreshToken',res.data.result.refreshToken);
         });      
         history.push('/studies');
     }
@@ -38,7 +43,7 @@ function Login() {
                       Email
     </Form.Label>
                   <Col sm="4">
-                      <Form.Control type="text" defaultValue="email@example.com" />
+                      <Form.Control type="text"/>
                   </Col>
               </Form.Group>
 
