@@ -1,14 +1,17 @@
 import { combineReducers } from 'redux';
 
 
-const initialState = {
+const studiesInitialState = {
   studiesList: [],
 };
 
-const studiesReducer = (state = initialState, action) => {
+const profileInitialState = {
+    profileData: {},
+  };
+
+const studiesReducer = (state = studiesInitialState, action) => {
     switch (action.type) {
-        case 'SAVE_STUDY':
-            console.log('SAS',action)            
+        case 'SAVE_STUDY':            
             return {
                 ...state,
                 studiesList: action.payload,
@@ -18,8 +21,21 @@ const studiesReducer = (state = initialState, action) => {
     }
 };
 
+const profileReducer = (state = profileInitialState, action) => {
+    switch (action.type) {
+        case 'SAVE_PROFILE':            
+            return {
+                ...state,
+                profileData: action.payload,
+            };
+        default:
+            return state;
+    }
+};
+
 const rootReducer = combineReducers({
- studies:studiesReducer
+ studies:studiesReducer,
+ user: profileReducer,
 });
 
 export default rootReducer;

@@ -10,8 +10,11 @@ import store from  './redux/store';
 
 axios.interceptors.request.use(function (config) {
   // Do something before request is sent
-  console.log('test venkat');
   config.headers.clientid =  654111;
+  const token = localStorage.getItem('thread-token');
+  if (token !=null && token != '') {
+    config.headers.Authorization =  token;
+  }  
   return config;
 }, function (error) {
   // Do something with request error

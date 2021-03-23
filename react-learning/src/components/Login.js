@@ -13,34 +13,32 @@ import {
   } from "react-router-dom";
 import * as actionCreator from "../redux/actions";
 import { connect, useSelector, useDispatch, } from "react-redux";
+import jwtDecode from 'jwt-decode';
 
 function Login() {
     const history = useHistory();
     const dispatch = useDispatch();
-  useEffect(() => {
-    dispatch(actionCreator.saveStudiesData([{name:'Ganesh'}, {name:'Kumar'}]));
-}, []);
-const studiesList = useSelector((state)=>{
-    console.log('state check', state);
-    return state;
- });
-    const handleSubmit = (e)=> {
-    e.preventDefault();   
-    console.log('check state', studiesList);     
-    axios.post('https://clientonbelb.styx.threadresearch.com/api/v1/auth/sign-in', {"password":"Thread@80","username":"ramana.gulla+pltadmin@fissionlabs.com","webPortalLogIn":true}, {        
-        }).then((res)=>{
-        console.log(res);
-        localStorage.setItem('thread-token',res.data.result.token);
-        localStorage.setItem('thread-refreshToken',res.data.result.refreshToken);
-        });      
-        history.push('/studies');
+    useEffect(() => {
+        dispatch(actionCreator.saveStudiesData([{ name: 'Ganesh' }, { name: 'Kumar' }]));
+    }, []);
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+        localStorage.removeItem('thread-token');
+        let loginData = await actionCreator.loginAPI({ "password": "Thread@80", "username": "ramana.gulla+pltadmin@fissionlabs.com", "webPortalLogIn": true });
+        if (loginData.statusCode === 200) {
+            const tokenObj = jwtDecode(loginData.result.token);
+            let profileData = await dispatch(actionCreator.getProfileDataAPI(tokenObj.id));
+            localStorage.setItem('thread-token', loginData.result.token);
+            localStorage.setItem('thread-refreshToken', loginData.result.refreshToken);
+            history.push('/studies');
+        }
     }
   return(
       <div>
           <Form onSubmit={handleSubmit}>
               <Form.Group as={Row} controlId="formPlaintextEmail">
                   <Form.Label column sm="2">
-                      Email
+                      Email 
     </Form.Label>
                   <Col sm="4">
                       <Form.Control type="text"/>

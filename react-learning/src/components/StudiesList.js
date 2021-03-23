@@ -17,20 +17,17 @@ function StudiesList() {
   const history = useHistory();
   let match = useRouteMatch();
   const dispatch = useDispatch();
-  let studiesList = [];
-  studiesList = useSelector((state)=>{
+  const storeData = useSelector((state)=>{
+    console.log('state', state);
     return state;
  });
-  useEffect(() => {
-    //const studiesList = useSelector(state => state.studiesList);
-    console.log('studiesList', studiesList);
-    
-}, []);
   const studiesDetails = ()=>{
     history.push('/studies/component')
   }
   return(
       <div>
+        <h1>The Count is {storeData.studies.studiesList.length}</h1>
+        <h1>The username is  {storeData.user.profileData.firstName}</h1>
          <Button variant="primary" onClick={studiesDetails}>Studies Details</Button>
       </div>
   )

@@ -17,6 +17,10 @@ import { connect, useSelector, useDispatch, } from "react-redux";
 
 function Studies() {
   let match = useRouteMatch();
+  const dispatch = useDispatch();
+  useEffect(() => {
+    dispatch(actionCreator.getStudiesDataAPI());    
+   }, []);
   return(
       <div>          
         <Switch>
