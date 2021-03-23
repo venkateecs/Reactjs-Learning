@@ -7,8 +7,9 @@ import axios from 'axios';
 import {Provider} from 'react-redux';
 import {BrowserRouter} from 'react-router-dom';
 import store from  './redux/store';
+import "react-loader-spinner/dist/loader/css/react-spinner-loader.css";
 
-axios.interceptors.request.use(function (config) {
+/*axios.interceptors.request.use(function (config) {
   // Do something before request is sent
   config.headers.clientid =  654111;
   const token = localStorage.getItem('thread-token');
@@ -19,7 +20,7 @@ axios.interceptors.request.use(function (config) {
 }, function (error) {
   // Do something with request error
   return Promise.reject(error);
-});
+});*/
 
 ReactDOM.render(
   <React.StrictMode>

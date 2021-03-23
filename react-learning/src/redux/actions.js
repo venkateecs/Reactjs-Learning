@@ -6,6 +6,10 @@ export const saveStudiesData = data => {
 export const saveProfileData = data => {
     return { type: 'SAVE_PROFILE', payload: data };
 }
+export const showLoader = data => {
+    return { type: 'SHOW_LOADER', payload: data };
+}
+
 export function loginAPI(userData) {   
    return axios.post(`${API_ROOT}${auth}/${signin}`,userData,{
      })
