@@ -7,3 +7,5 @@ export const signin = 'sign-in';
 export const studymanagement = 'studymanagement';
 export const users = 'users';
 export const studies = 'studies';
+export const search = 'search';
+export const sortandfilters = 'sortandfilters';

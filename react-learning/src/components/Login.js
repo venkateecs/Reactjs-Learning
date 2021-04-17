@@ -17,10 +17,7 @@ import jwtDecode from 'jwt-decode';
 
 function Login() {
     const history = useHistory();
-    const dispatch = useDispatch();
-    useEffect(() => {
-        dispatch(actionCreator.saveStudiesData([{ name: 'Ganesh' }, { name: 'Kumar' }]));
-    }, []);
+    const dispatch = useDispatch();    
     const handleSubmit = async (e) => {
         e.preventDefault();
         localStorage.removeItem('thread-token');
@@ -30,6 +27,7 @@ function Login() {
             let profileData = await dispatch(actionCreator.getProfileDataAPI(tokenObj.id));
             localStorage.setItem('thread-token', loginData.result.token);
             localStorage.setItem('thread-refreshToken', loginData.result.refreshToken);
+            localStorage.setItem('thread-tokenObject', JSON.stringify(tokenObj));
             history.push('/studies');
         }
     }
