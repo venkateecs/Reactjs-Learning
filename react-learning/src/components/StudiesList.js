@@ -23,10 +23,9 @@ function StudiesList() {
     console.log('state', state);
     return state;
  });
-  const studiesDetails = (data)=>{
-    history.push(`/studies/${data.studyId}`)
-    //history.push(`/studies/component`)
-    //console.log('data', data);
+  const studiesDetails = async (data)=> {
+    await dispatch(actionCreator.saveSelectedStudyDetails(data));   
+    history.push(`/studies/${data.studyId}`);        
   }
   useEffect(async()=> {
     let threadTokenObject = JSON.parse(localStorage.getItem('thread-tokenObject'));

@@ -9,9 +9,15 @@ import {
   useParams,
   useHistory 
 } from "react-router-dom";
+import { connect, useSelector, useDispatch, } from "react-redux";
+
 function Dashboard({studiesId}) {
     const history = useHistory();
-  let match = useRouteMatch();  
+  let match = useRouteMatch();
+  const storeData = useSelector((state)=>{
+    console.log('state dashboard screen', state);
+    return state;
+ });  
   const goToStudy = (type)=> {      
     history.push(`${match.url}/${type}`);
   }
@@ -22,7 +28,7 @@ function Dashboard({studiesId}) {
           <Topic/>
         </Route> 
         <Route path={match.path}>
-        <h2>This is Dashboard Screen {studiesId}</h2>
+        <h2>This is Dashboard Screen {studiesId} {storeData.user.selectedStudy.name}</h2>
         <Button variant="primary" onClick={()=> goToStudy('report')}>report</Button>
         <Button variant="primary" onClick={()=>goToStudy('research')}>Research</Button>
         </Route>

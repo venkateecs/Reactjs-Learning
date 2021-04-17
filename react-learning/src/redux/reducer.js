@@ -7,7 +7,8 @@ const studiesInitialState = {
 
 const profileInitialState = {
     profileData: {},
-    showLoader: false
+    showLoader: false,
+    selectedStudy: {},    
   };
 
 const studiesReducer = (state = studiesInitialState, action) => {
@@ -29,6 +30,11 @@ const profileReducer = (state = profileInitialState, action) => {
                 ...state,
                 profileData: action.payload,
             };
+          case 'SELECTED_STUDY':
+              return {
+                  ...state,
+                  selectedStudy: action.payload 
+              }
             case 'SHOW_LOADER':            
             return {
                 ...state,

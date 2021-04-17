@@ -65,3 +65,6 @@ export const getStudiesDataFilterAPI = (filterCond) => {
             });
     };
 };
+export const saveSelectedStudyDetails = data => {
+    return { type: 'SELECTED_STUDY', payload: data };
+}
